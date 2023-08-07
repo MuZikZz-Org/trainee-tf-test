@@ -5,19 +5,19 @@ terraform {
       version = "~>3.0"
     }
   }
- # backend "azurerm" {
- #  resource_group_name  = "rg-ais-payment-gateway"
- #   storage_account_name = "sbpocstoacc"
- #   container_name       = "tfstatetest"
- #   key                  = "terraform.tfstate"
- # }
+  backend "azurerm" {
+   resource_group_name  = "rg-ais-payment-gateway"
+    storage_account_name = "sbpocstoacc"
+    container_name       = "tfstatetest"
+    key                  = "terraform.tfstate"
+  }
 }
 
 provider "azurerm" {
-  subscription_id  =  "ARM_SUBSCRIPTION_ID"
-  tenant_id  =  "ARM_TENANT_ID"  
-  client_id  =  "ARM_CLIENT_ID"
-  client_secret  =  "ARM_CLIENT_SECRET"
+  # subscription_id  =  "ARM_SUBSCRIPTION_ID"
+  # tenant_id  =  "ARM_TENANT_ID"  
+  # client_id  =  "ARM_CLIENT_ID"
+  # client_secret  =  "ARM_CLIENT_SECRET"
   features {}
 }
 
