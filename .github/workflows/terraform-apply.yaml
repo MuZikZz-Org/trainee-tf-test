@@ -18,9 +18,9 @@ jobs:
       uses: actions/checkout@v1
 
     - name: Login via Az module
-      uses: azure/login@v1
+      uses: hashicorp/setup-terraform@v1
       with:
-        creds: ${{secrets.AZURE_CREDENTIALS}}
+        cli_config_credentials_token: ${{ secrets.AZURE_CLIENT_SECRET }}
         enable-AzPSSession: true
 
 
