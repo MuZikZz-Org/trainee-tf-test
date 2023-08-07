@@ -16,8 +16,14 @@ jobs:
     
     - name: Check out code  
       uses: actions/checkout@v1
+      
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+       
 
-    - name: Login via Az module
+    - name: set up
       uses: hashicorp/setup-terraform@v1
       with:
         cli_config_credentials_token: ${{ secrets.AZURE_CLIENT_SECRET }}
