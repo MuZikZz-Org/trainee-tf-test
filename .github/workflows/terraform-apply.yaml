@@ -26,18 +26,20 @@ jobs:
 
 
 
-  # validate:
-  #   needs: login
-  #   name: validate
-  #   runs-on: ubuntu-latest
-  #   steps:
-    # - name: export env
-    #   id: export
-    #   run: |
-    #    export ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}
-    #    export ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}
-    #    export ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}
-    #    export ARM_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}
+  validate:
+    needs: login
+    name: validate
+    runs-on: ubuntu-latest
+    steps:
+    - name: export env
+      id: export
+      run: |
+       export ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}
+       export ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}
+       export ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}
+       export ARM_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}
+    - name: check env
+      run: env |grep ARM
     
     - name: Terraform Init
       id: init
