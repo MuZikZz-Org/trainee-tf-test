@@ -5,11 +5,11 @@ terraform {
       version = "~>3.0"
     }
   }
-  #backend "azurerm" {
-  # resource_group_name  = "rg-ais-payment-gateway"
-  #  storage_account_name = "sbpocstoacc"
-  #  container_name       = "tfstatetest"
-  #  key                  = "terraform.tfstate"
+  backend "azurerm" {
+   resource_group_name  = "rg-ais-payment-gateway"
+    storage_account_name = "sbpocstoacc"
+    container_name       = "tfstatetest"
+    key                  = "terraform.tfstate"
   }
 }
 
