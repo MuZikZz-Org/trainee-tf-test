@@ -17,11 +17,10 @@ jobs:
     - name: Check out code  
       uses: actions/checkout@v3
 
-    - name: Login via Az module
-      uses: azure/login@v1
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
       with:
-        creds: ${{secrets.AZURE_CREDENTIALS}}
-        enable-AzPSSession: true
+          cli_config_credentials_token: ${{ secrets.AZURE_CREDENTIALS }}
 
 
   # validate:
