@@ -39,7 +39,7 @@ jobs:
        export ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}
        export ARM_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}
     - name: check env
-      run: env |grep ARM
+      run: printenv |grep ARM
     
     - name: Terraform Init
       id: init
