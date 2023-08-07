@@ -22,8 +22,6 @@ jobs:
       with:
         creds: ${{secrets.AZURE_CREDENTIALS}}
         enable-AzPSSession: true
-    - name: Login az
-      run: az login -u "t.natthida.klinhom@scbtechx.io" -p "${{secrets.PASSWORD}}"
 
 
   # validate:
