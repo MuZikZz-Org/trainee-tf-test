@@ -2,22 +2,8 @@ name: Terraform Destroy
 on:
  workflow_dispatch:
 
-jobs:
- login:
-   name: login
-   runs-on: ubuntu-latest
-   
-   steps:
-      - name: Check out code  
-        uses: actions/checkout@v1
-
-      - name: Login via Az module
-        uses: azure/login@v1
-        with:
-          creds: ${{secrets.AZURE_CREDENTIALS}}
-          enable-AzPSSession: true
-        
- tf-destroy:
+jobs:   
+ destroy:
    runs-on: ubuntu-latest
    env:
       creds: ${{secrets.AZURE_CREDENTIALS}}
@@ -25,7 +11,7 @@ jobs:
 
    steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         
       - name: Setup Terraform                                                                      
         uses: hashicorp/setup-terraform@v1
