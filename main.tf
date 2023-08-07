@@ -2,23 +2,32 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~>3.0"
+      version = ">= 3.46.0"
     }
   }
-  backend "azurerm" {
+  #backend "azurerm" {
+  # resource_group_name  = "rg-ais-payment-gateway"
+  #  storage_account_name = "sbpocstoacc"
+  #  container_name       = "tfstatetest"
+  #  key                  = "terraform.tfstate"
+  #}
+}
+
+provider "azurerm" {
+  #subscription_id  =  "${env.ARM_SUBSCRIPTION_ID}" 
+  #tenant_id  =  "${env.ARM_TENANT_ID}"  
+  #client_id  =  "${env.ARM_CLIENT_ID}"
+  #client_secret  =  "${env.ARM_CLIENT_SECRET}"
+  features {}
+}
+
+terraform {  
+  backend  "azurerm" {  
    resource_group_name  = "rg-ais-payment-gateway"
     storage_account_name = "sbpocstoacc"
     container_name       = "tfstatetest"
     key                  = "terraform.tfstate"
   }
-}
-
-provider "azurerm" {
-  subscription_id  =  "${env.ARM_SUBSCRIPTION_ID}" 
-  tenant_id  =  "${env.ARM_TENANT_ID}"  
-  client_id  =  "${env.ARM_CLIENT_ID}"
-  client_secret  =  "${env.ARM_CLIENT_SECRET}"
-  features {}
 }
 
 
