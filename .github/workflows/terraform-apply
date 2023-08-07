@@ -1,0 +1,56 @@
+name: 'Terraform Apply'
+ 
+on:
+  workflow_dispatch:
+ 
+jobs:
+  login:
+    name: login
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+        
+    steps:
+    
+    - name: Check out code  
+      uses: actions/checkout@v1
+
+    - name: Login via Az module
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+        enable-AzPSSession: true
+
+
+  # validate:
+  #   needs: login
+  #   name: validate
+  #   runs-on: ubuntu-latest
+  #   steps:
+
+    - name: Terraform Init
+      id: init
+      run: terraform init
+
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate
+
+  # build:
+  #   needs: validate
+  #   name: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+
+    - name: Terraform Plan
+      id: plan
+      run: terraform plan -no-color -refresh=true -no-color -detailed-exitcode
+      continue-on-error: true
+    # - run: echo "stderr  ${{ steps.plan.outputs.stderr }}"
+    # - run: echo "stdout ${{ steps.plan.outputs.stout }}"
+
+    - name: Terraform apply
+      id: apply
+      run: terraform apply -auto-approve
