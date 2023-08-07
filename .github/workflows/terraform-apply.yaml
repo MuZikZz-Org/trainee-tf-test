@@ -3,9 +3,7 @@ name: 'Terraform Apply'
  
 on:
   workflow_dispatch:
-permissions:
-      id-token: write
-      contents: read
+
 jobs:
   login:
     name: login
@@ -22,13 +20,10 @@ jobs:
 
     - name: Login via Az module
       uses: azure/login@v1
-      # with:
-      #   creds: ${{secrets.AZURE_CREDENTIALS}}
-      #   enable-AzPSSession: true
       with:
-       client-id: ${{ secrets.AZURE_CLIENT_ID }}
-       tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-       subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+        enable-AzPSSession: true
+
 
 
   # validate:
@@ -36,18 +31,18 @@ jobs:
   #   name: validate
   #   runs-on: ubuntu-latest
   #   steps:
-    - name: export env
-      id: export
-      run: |
-       export ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}
-       export ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}
-       export ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}
-       export ARM_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}
+    # - name: export env
+    #   id: export
+    #   run: |
+    #    export ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    #    export ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}
+    #    export ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}
+    #    export ARM_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}
     
     - name: Terraform Init
       id: init
-      # run: terraform init -backend-config="client_id=${{ secrets.AZURE_CLIENT_ID }}" -backend-config="client_secret=${{ secrets.AZURE_CLIENT_SECRET }}" -backend-config="tenant_id=${{ secrets.AZURE_TENANT_ID }}" -backend-config="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
-      run: terraform init
+      run: terraform init -backend-config="client_id=${{ secrets.AZURE_CLIENT_ID }}" -backend-config="client_secret=${{ secrets.AZURE_CLIENT_SECRET }}" -backend-config="tenant_id=${{ secrets.AZURE_TENANT_ID }}" -backend-config="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+      # run: terraform init
 
     - name: Terraform Validate
       id: validate
