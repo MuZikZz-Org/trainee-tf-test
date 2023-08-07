@@ -1,0 +1,43 @@
+name: Terraform Destroy
+on:
+ workflow_dispatch:
+
+jobs:
+ login:
+   name: login
+   runs-on: ubuntu-latest
+   
+   steps:
+      - name: Check out code  
+        uses: actions/checkout@v1
+
+      - name: Login via Az module
+        uses: azure/login@v1
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+          enable-AzPSSession: true
+        
+ tf-destroy:
+   runs-on: ubuntu-latest
+   env:
+      creds: ${{secrets.AZURE_CREDENTIALS}}
+      enable-AzPSSession: true
+
+   steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Setup Terraform                                                                      
+        uses: hashicorp/setup-terraform@v1
+        
+      - name: Terraform Init
+        id: init
+        run: terraform init 
+        
+      - name: Show Destroy plan
+        run: terraform plan -destroy
+        continue-on-error: true
+
+      - name: Terraform destroy
+        id: destroy
+        run: terraform destroy -auto-approve
