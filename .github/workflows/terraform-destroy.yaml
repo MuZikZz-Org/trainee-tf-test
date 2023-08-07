@@ -13,8 +13,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         
-      - name: Setup Terraform                                                                      
+      - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
+        with:
+          cli_config_credentials_token: ${{ secrets.AZURE_CREDENTIALS }}
         
       - name: Terraform Init
         id: init
