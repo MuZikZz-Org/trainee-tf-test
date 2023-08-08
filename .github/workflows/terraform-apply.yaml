@@ -77,10 +77,10 @@ jobs:
         id: plan
         run: terraform plan -var-file="common_config.json"
         # -no-color -refresh=true -no-color -detailed-exitcode
-        continue-on-error: true
+        # continue-on-error: true
       # - run: echo "stderr  ${{ steps.plan.outputs.stderr }}"
       # - run: echo "stdout ${{ steps.plan.outputs.stout }}"
   
-      # - name: Terraform apply
-      #   id: apply
-      #   run: terraform apply -auto-approve
+      - name: Terraform apply
+        id: apply
+        run: terraform apply -auto-approve
