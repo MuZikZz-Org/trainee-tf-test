@@ -45,7 +45,15 @@ jobs:
 
       - name: check file
         run: cat secret.json
-      
+
+
+      - name: sed
+        id: sed
+        run: |
+          sed -i "s|test ja|##WorkloadAccessKey##|g" common_config.json && \
+          cat common_config.json              
+
+
       - name: Terraform Init
         id: init
         #run: terraform init -backend-config="client_id=${{ secrets.AZURE_CLIENT_ID }}" -backend-config="client_secret=${{ secrets.AZURE_CLIENT_SECRET }}" -backend-config="tenant_id=${{ secrets.AZURE_TENANT_ID }}" -backend-config="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
