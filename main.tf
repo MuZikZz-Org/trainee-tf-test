@@ -13,12 +13,6 @@ terraform {
   #}
 }
 
-
-variable "env" {
-  description = "System environment name"
-  type = string
-}
-
 provider "azurerm" {
   subscription_id  =  "${env.ARM_SUBSCRIPTION_ID}" 
   tenant_id  =  "${env.ARM_TENANT_ID}"  
