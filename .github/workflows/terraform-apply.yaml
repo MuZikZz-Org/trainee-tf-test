@@ -50,8 +50,11 @@ jobs:
       - name: sed
         id: sed
         run: |
-          sed -i "s|##WorkloadAccessKey##|test ja|g" common_config.json && \
-          cat common_config.json              
+          sed -i "s|##ARM_SUBSCRIPTION_ID##|$AZURE_SUBSCRIPTION_ID|g" common_config.json && \
+          sed -i "s|##ARM_TENANT_ID##|$AZURE_TENANT_ID|g" common_config.json && \
+          sed -i "s|##ARM_CLIENT_ID##|$AZURE_CLIENT_ID|g" common_config.json && \
+          sed -i "s|##ARM_CLIENT_SECRET##|$AZURE_CLIENT_SECRET|g" common_config.json && \
+          cat common_config.json
 
 
       - name: Terraform Init
@@ -71,7 +74,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -lock=false -var-file="common_config.json"
+        run: terraform plan -var-file="common_config.json"
         # -no-color -refresh=true -no-color -detailed-exitcode
         continue-on-error: true
       # - run: echo "stderr  ${{ steps.plan.outputs.stderr }}"
