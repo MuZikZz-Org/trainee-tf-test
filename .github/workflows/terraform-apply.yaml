@@ -50,7 +50,7 @@ jobs:
       - name: sed
         id: sed
         run: |
-          sed -i "s|test ja|##WorkloadAccessKey##|g" common_config.json && \
+          sed -i "s|##WorkloadAccessKey##|test ja|g" common_config.json && \
           cat common_config.json              
 
 
