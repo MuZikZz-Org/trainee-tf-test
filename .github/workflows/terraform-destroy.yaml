@@ -4,8 +4,8 @@ on:
 
 
 jobs:
-  login:
-    name: login
+  destroy:
+    name: destroy
     runs-on: ubuntu-latest
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
