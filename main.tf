@@ -1,6 +1,6 @@
-data "azurerm_resource_group" "rg" {
-  name     = "rg-ais-payment-gateway"
-}
+#data "azurerm_resource_group" "rg" {
+# name     = "rg-ais-payment-gateway"
+#}
 
 # Create virtual network
 resource "azurerm_virtual_network" "my_terraform_network" {
