@@ -4,7 +4,7 @@
 
 # Create virtual network
 resource "azurerm_virtual_network" "my_terraform_network" {
-  name                = "myVnet"
+  name                = "trainee-Vnet"
   address_space       = ["10.0.0.0/16"]
   location            = "SoutheastAsia"
   resource_group_name = "rg-ais-payment-gateway"
@@ -19,7 +19,7 @@ resource "azurerm_virtual_network" "my_terraform_network" {
 
 # Create subnet
 resource "azurerm_subnet" "my_terraform_subnet" {
-  name                 = "mySubnet"
+  name                 = "trainee-Subnet"
   resource_group_name  = "rg-ais-payment-gateway"
   virtual_network_name = azurerm_virtual_network.my_terraform_network.name
   address_prefixes     = ["10.0.1.0/24"]
@@ -27,7 +27,7 @@ resource "azurerm_subnet" "my_terraform_subnet" {
 
 # Create public IPs
 resource "azurerm_public_ip" "my_terraform_public_ip" {
-  name                = "myPublicIP"
+  name                = "trainee-PublicIP"
   location            = "SoutheastAsia"
   resource_group_name = "rg-ais-payment-gateway"
   allocation_method   = "Dynamic"
@@ -42,7 +42,7 @@ resource "azurerm_public_ip" "my_terraform_public_ip" {
 
 # Create Network Security Group and rule
 resource "azurerm_network_security_group" "my_terraform_nsg" {
-  name                = "myNetworkSecurityGroup"
+  name                = "trainee-NetworkSecurityGroup"
   location            = "SoutheastAsia"
   resource_group_name = "rg-ais-payment-gateway"
 
@@ -68,12 +68,12 @@ resource "azurerm_network_security_group" "my_terraform_nsg" {
 
 # Create network interface
 resource "azurerm_network_interface" "my_terraform_nic" {
-  name                = "myNIC"
+  name                = "trainee-NIC"
   location            = "SoutheastAsia"
   resource_group_name = "rg-ais-payment-gateway"
 
   ip_configuration {
-    name                          = "my_nic_configuration"
+    name                          = "trainee_nic_configuration"
     subnet_id                     = azurerm_subnet.my_terraform_subnet.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.my_terraform_public_ip.id
