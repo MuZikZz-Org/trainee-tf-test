@@ -8,4 +8,12 @@
         "SRC_IMG_REF_OFFER" : "0001-com-ubuntu-server-jammy",
         "SRC_IMG_REF_SKU" : "22_04-lts-gen2",
         "SRC_IMG_REF_VERSION" : "latest",
+
+	"env_tags": {
+		"Environment": "sandbox",
+		"company":  "techx",
+		"emailowner": "pongsathorn.upan@scbtechx.io",
+		"project": "AIS-Payment-gateway",
+		"validdate": "30Sep2023"
+	}
 }
