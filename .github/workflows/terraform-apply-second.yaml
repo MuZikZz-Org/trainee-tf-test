@@ -23,6 +23,10 @@ jobs:
       with:
         terraform_version: ${{ env.TF_VERSION }}
 
+    - name: Unlock Terraform State
+      run: terraform force-unlock -force 7650dec1-16b6-1cd7-c7b1-d520114343ae
+      continue-on-error: true
+
     - name: Terraform Init
       run: terraform init
 
