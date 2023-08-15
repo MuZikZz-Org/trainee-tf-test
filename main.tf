@@ -147,7 +147,6 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
   admin_ssh_key {
     username   = "natthidak"
     public_key = tls_private_key.example_ssh.public_key_openssh
-    path = "/home/admin@123/.ssh/authorized_keys"
   }
 
   boot_diagnostics {
