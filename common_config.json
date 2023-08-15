@@ -2,18 +2,16 @@
 	"ARM_SUBSCRIPTION_ID" : "##ARM_SUBSCRIPTION_ID##",
 	"ARM_TENANT_ID" : "##ARM_TENANT_ID##",
 	"ARM_CLIENT_ID" : "##ARM_CLIENT_ID##",
-	"ARM_CLIENT_SECRET" : "##ARM_CLIENT_SECRET##"
-	
-        "SRC_IMG_REF_PUBLISHER" : "Canonical",
-        "SRC_IMG_REF_OFFER" : "0001-com-ubuntu-server-jammy",
-        "SRC_IMG_REF_SKU" : "22_04-lts-gen2",
-        "SRC_IMG_REF_VERSION" : "latest",
-
+	"ARM_CLIENT_SECRET" : "##ARM_CLIENT_SECRET##"	
 	"env_tags": {
 		"Environment": "sandbox",
 		"company":  "techx",
 		"emailowner": "pongsathorn.upan@scbtechx.io",
 		"project": "AIS-Payment-gateway",
 		"validdate": "30Sep2023"
-	}
+	},
+        "SRC_IMG_REF_PUBLISHER" : "Canonical",
+        "SRC_IMG_REF_OFFER" : "0001-com-ubuntu-server-jammy",
+        "SRC_IMG_REF_SKU" : "22_04-lts-gen2",
+        "SRC_IMG_REF_VERSION" : "latest",
 }
