@@ -83,7 +83,7 @@ jobs:
       # - run: echo "stdout ${{ steps.plan.outputs.stout }}"
       - name: var
         id: var
-        run: echo "var.ARM_CLIENT_ID"
+        run: echo "$var.ARM_CLIENT_ID"
   
       - name: Terraform apply
         id: apply 
