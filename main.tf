@@ -8,13 +8,9 @@ resource "azurerm_virtual_network" "my_terraform_network" {
   address_space       = ["10.0.0.0/16"]
   location            = "SoutheastAsia"
   resource_group_name = "rg-ais-payment-gateway"
-  tags = {
-    environment = "sandbox"
-    company =  "techx"
-    emailowner = "pongsathorn.upan@scbtechx.io"
-    project = "AIS-Payment-gateway"
-    validdate = "30Sep2023"
-  }
+  tags = merge(
+     var.env_tags
+   )
 }
 
 # Create subnet
@@ -31,13 +27,9 @@ resource "azurerm_public_ip" "my_terraform_public_ip" {
   location            = "SoutheastAsia"
   resource_group_name = "rg-ais-payment-gateway"
   allocation_method   = "Dynamic"
-      tags = {
-    environment = "sandbox"
-    company =  "techx"
-    emailowner = "pongsathorn.upan@scbtechx.io"
-    project = "AIS-Payment-gateway"
-    validdate = "30Sep2023"
-  }
+      tags = merge(
+     var.env_tags
+   )
 }
 
 # Create Network Security Group and rule
@@ -57,13 +49,9 @@ resource "azurerm_network_security_group" "my_terraform_nsg" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-    tags = {
-    environment = "sandbox"
-    company =  "techx"
-    emailowner = "pongsathorn.upan@scbtechx.io"
-    project = "AIS-Payment-gateway"
-    validdate = "30Sep2023"
-  }
+    tags = merge(
+     var.env_tags
+   )
 }
 
 # Create network interface
@@ -78,13 +66,9 @@ resource "azurerm_network_interface" "my_terraform_nic" {
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.my_terraform_public_ip.id
   }
-    tags = {
-    environment = "sandbox"
-    company =  "techx"
-    emailowner = "pongsathorn.upan@scbtechx.io"
-    project = "AIS-Payment-gateway"
-    validdate = "30Sep2023"
-  }
+    tags = merge(
+     var.env_tags
+   )
 }
 
 # Connect the security group to the network interface
@@ -103,13 +87,9 @@ resource "azurerm_storage_account" "my_storage_account" {
   resource_group_name      = "rg-ais-payment-gateway"
   account_tier             = "Standard"
   account_replication_type = "LRS"
-      tags = {
-    environment = "sandbox"
-    company = "techx"
-    emailowner = "pongsathorn.upan@scbtechx.io"
-    project = "AIS-Payment-gateway"
-    validdate = "30Sep2023"
-  }
+      tags = merge(
+     var.env_tags
+   )
 }
 
 # Create (and display) an SSH key
@@ -152,11 +132,7 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
   boot_diagnostics {
     storage_account_uri = azurerm_storage_account.my_storage_account.primary_blob_endpoint
   }
-  tags = {
-    environment = "sandbox"
-    company =  "techx"
-    emailowner = "pongsathorn.upan@scbtechx.io"
-    project = "AIS-Payment-gateway"
-    validdate = "30Sep2023"
-  }
+  tags = merge(
+     var.env_tags
+   )
 }
