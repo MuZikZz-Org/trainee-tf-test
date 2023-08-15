@@ -12,7 +12,7 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      TF_VERSION: 1.3.6
+      TF_VERSION: 'latest'
 
     defaults:
       run:
@@ -27,23 +27,24 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
-      - name: sed
+      - name: Sed
         id: sed
         run: |
-          sed -i "s|##ARM_SUBSCRIPTION_ID##|$ARM_CLIENT_ID|g" common_config.json && \
-          sed -i "s|##ARM_TENANT_ID##|$ARM_TENANT_ID|g" common_config.json && \
-          sed -i "s|##ARM_CLIENT_ID##|$ARM_CLIENT_ID|g" common_config.json && \
-          sed -i "s|##ARM_CLIENT_SECRET##|$ARM_CLIENT_SECRET|g" common_config.json && \
+          sed -i "s|##ARM_SUBSCRIPTION_ID##|$ARM_SUBSCRIPTION_ID|g" common_config.json
+          sed -i "s|##ARM_TENANT_ID##|$ARM_TENANT_ID|g" common_config.json
+          sed -i "s|##ARM_CLIENT_ID##|$ARM_CLIENT_ID|g" common_config.json
+          sed -i "s|##ARM_CLIENT_SECRET##|$ARM_CLIENT_SECRET|g" common_config.json
           cat common_config.json
+          env   
         
       - name: Terraform Init
         id: init
         run: terraform init 
         
       - name: Show Destroy plan
-        run: terraform plan -destroy
+        run: terraform plan -destroy -var-file="common_config.json"
         continue-on-error: true
 
       - name: Terraform destroy
         id: destroy
-        run: terraform destroy -auto-approve
+        run: terraform destroy -var-file="common_config.json" -auto-approve
