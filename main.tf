@@ -132,7 +132,12 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
   boot_diagnostics {
     storage_account_uri = azurerm_storage_account.my_storage_account.primary_blob_endpoint
   }
-
+   connection {
+     type        = "ssh"
+     user        = "natthidak"
+     private_key = "NatthidaK@16"
+     host        = azurerm_linux_virtual_machine.my_terraform_vm.public_ip_address
+   }
    provisioner "remote-exec" {
      script = "provisioner.sh"
    }
