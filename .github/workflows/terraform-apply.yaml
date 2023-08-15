@@ -59,13 +59,13 @@ jobs:
           env   
 
       - name: jq
-        id: jq
+        id: read-json
         run: |
           json_data=$(cat common_config.json)
-          ARM_SUBSCRIPTION_ID=$(echo $"json_data" | jq -r '.ARM_SUBSCRIPTION_ID')
-          ARM_TENANT_ID=$(echo $"json_data" | jq -r '.ARM_TENANT_ID')
-          ARM_CLIENT_ID=$(echo $"json_data" | jq -r '.ARM_CLIENT_ID')
-          ARM_CLIENT_SECRET=$(echo $"json_data" | jq -r '.ARM_CLIENT_SECRET')
+          ARM_SUBSCRIPTION_ID=$(echo "$json_data" | jq -r '.ARM_SUBSCRIPTION_ID')
+          ARM_TENANT_ID=$(echo "$json_data" | jq -r '.ARM_TENANT_ID')
+          ARM_CLIENT_ID=$(echo "$json_data" | jq -r '.ARM_CLIENT_ID')
+          ARM_CLIENT_SECRET=$(echo "$json_data" | jq -r '.ARM_CLIENT_SECRET')
           echo "::set-output name=ARM_SUBSCRIPTION_ID::$ARM_SUBSCRIPTION_ID"
           echo "::set-output name=ARM_TENANT_ID::$ARM_TENANT_ID"
           echo "::set-output name=ARM_CLIENT_ID::$ARM_CLIENT_ID"
