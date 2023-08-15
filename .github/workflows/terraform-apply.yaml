@@ -81,9 +81,6 @@ jobs:
         # continue-on-error: true
       # - run: echo "stderr  ${{ steps.plan.outputs.stderr }}"
       # - run: echo "stdout ${{ steps.plan.outputs.stout }}"
-      - name: var
-        id: var
-        run: echo "$var.ARM_CLIENT_ID"
   
       - name: Terraform apply
         id: apply 
