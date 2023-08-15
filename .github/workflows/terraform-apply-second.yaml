@@ -23,6 +23,19 @@ jobs:
       with:
         terraform_version: ${{ env.TF_VERSION }}
 
+    - name: Perform Text Replacement using sed
+      run: |
+        sed -i 's/##ARM_SUBSCRIPTION_ID##/$ARM_SUBSCRIPTION_ID/g' common_config.json
+        sed -i 's/##ARM_TENANT_ID##/$ARM_TENANT_ID/g' common_config.json
+        sed -i 's/##ARM_CLIENT_ID##/$ARM_CLIENT_ID/g' common_config.json
+        sed -i 's/##ARM_CLIENT_SECRET##/$ARM_CLIENT_SECRET/g' common_config.json
+        cat common_config.json
+
+    - name: Modify JSON using jq
+      run: |
+        # Example: Modify a JSON file using jq
+        cat input.json | jq '.key = "new value"' > modified.json
+
     - name: Terraform Init
       run: terraform init
 
