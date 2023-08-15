@@ -42,7 +42,7 @@ jobs:
         run: terraform init 
         
       - name: Show Destroy plan
-        run: terraform plan -destroy -var-file="common_config.json"
+        run: terraform plan -destroy -var-file="common_config.json" -lock=false
         continue-on-error: true
 
       - name: Terraform destroy
