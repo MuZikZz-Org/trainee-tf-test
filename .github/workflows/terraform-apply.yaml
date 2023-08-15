@@ -66,10 +66,10 @@ jobs:
           ARM_TENANT_ID=$(echo "$json_data" | jq -r '.ARM_TENANT_ID')
           ARM_CLIENT_ID=$(echo "$json_data" | jq -r '.ARM_CLIENT_ID')
           ARM_CLIENT_SECRET=$(echo "$json_data" | jq -r '.ARM_CLIENT_SECRET')
-          echo "::set-output name=SET_ARM_SUBSCRIPTION_ID::$ARM_SUBSCRIPTION_ID"
-          echo "::set-output name=SET_ARM_TENANT_ID::$ARM_TENANT_ID"
-          echo "::set-output name=SET_ARM_CLIENT_ID::$ARM_CLIENT_ID"
-          echo "::set-output name=SET_ARM_CLIENT_SECRET::$ARM_CLIENT_SECRET"
+          echo "::set-output name=ARM_SUBSCRIPTION_ID::$ARM_SUBSCRIPTION_ID"
+          echo "::set-output name=ARM_TENANT_ID::$ARM_TENANT_ID"
+          echo "::set-output name=ARM_CLIENT_ID::$ARM_CLIENT_ID"
+          echo "::set-output name=ARM_CLIENT_SECRET::$ARM_CLIENT_SECRET"
 
           
           # sed -i "s|##ARM_SUBSCRIPTION_ID##|$ARM_CLIENT_ID|g" common_config.json
@@ -77,6 +77,17 @@ jobs:
           # sed -i "s|##ARM_CLIENT_ID##|$ARM_CLIENT_ID|g" common_config.json
           # sed -i "s|##ARM_CLIENT_SECRET##|$ARM_CLIENT_SECRET|g" common_config.json
           # cat common_config.json
+          
+
+      - name: Configure Terraform Variables
+        env:
+         TF_VAR_ARM_SUBSCRIPTION_ID: ${{ steps.read-json.outputs.ARM_SUBSCRIPTION_ID }}
+         TF_VAR_ARM_TENANT_ID: ${{ steps.read-json.outputs.ARM_TENANT_ID }}
+         TF_VAR_ARM_CLIENT_ID: ${{ steps.read-json.outputs.ARM_CLIENT_ID }}
+         TF_VAR_ARM_CLIENT_SECRET: ${{ steps.read-json.outputs.ARM_CLIENT_SECRET }}
+        run: |
+         echo "variable_name = $TF_VAR_variable_name" > terraform.tfvars
+         echo "another_variable = $TF_VAR_another_variable" >> terraform.tfvars
 
 
       - name: Terraform Init
