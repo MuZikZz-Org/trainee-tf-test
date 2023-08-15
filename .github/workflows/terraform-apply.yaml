@@ -61,10 +61,17 @@ jobs:
       - name: jq
         id: jq
         run: |
-          ARM_SUBSCRIPTION_ID=$(jq -r '.ARM_SUBSCRIPTION_ID')
-          ARM_TENANT_ID=$(jq -r '.ARM_TENANT_ID')
-          ARM_CLIENT_ID=$(jq -r '.ARM_CLIENT_ID')
-          ARM_CLIENT_SECRET=$(jq -r '.ARM_CLIENT_SECRET')
+          json_data=$(cat common_config.json)
+          ARM_SUBSCRIPTION_ID=$(echo "json_data" | jq -r '.ARM_SUBSCRIPTION_ID')
+          ARM_TENANT_ID=$(echo "json_data" | jq -r '.ARM_TENANT_ID')
+          ARM_CLIENT_ID=$(echo "json_data" | jq -r '.ARM_CLIENT_ID')
+          ARM_CLIENT_SECRET=$(echo "json_data" | jq -r '.ARM_CLIENT_SECRET')
+
+          echo "::set-output name=ARM_SUBSCRIPTION_ID::$ARM_SUBSCRIPTION_ID"
+          echo "::set-output name=ARM_TENANT_ID::$ARM_TENANT_ID"
+          echo "::set-output name=ARM_CLIENT_ID::$ARM_CLIENT_ID"
+          echo "::set-output name=ARM_CLIENT_SECRET::$ARM_CLIENT_SECRET"
+
           
           # sed -i "s|##ARM_SUBSCRIPTION_ID##|$ARM_CLIENT_ID|g" common_config.json
           # sed -i "s|##ARM_TENANT_ID##|$ARM_TENANT_ID|g" common_config.json
