@@ -58,14 +58,19 @@ jobs:
           cat common_config.json
           env   
 
-      # - name: jq
-      #   id: jq
-      #   run: |
-      #     sed -i "s|##ARM_SUBSCRIPTION_ID##|$ARM_CLIENT_ID|g" common_config.json
-      #     sed -i "s|##ARM_TENANT_ID##|$ARM_TENANT_ID|g" common_config.json
-      #     sed -i "s|##ARM_CLIENT_ID##|$ARM_CLIENT_ID|g" common_config.json
-      #     sed -i "s|##ARM_CLIENT_SECRET##|$ARM_CLIENT_SECRET|g" common_config.json
-      #     cat common_config.json
+      - name: jq
+        id: jq
+        run: |
+          ARM_SUBSCRIPTION_ID=$(jq -r '.ARM_SUBSCRIPTION_ID')
+          ARM_TENANT_ID=$(jq -r '.ARM_TENANT_ID')
+          ARM_CLIENT_ID=$(jq -r '.ARM_CLIENT_ID')
+          ARM_CLIENT_SECRET=$(jq -r '.ARM_CLIENT_SECRET')
+          
+          # sed -i "s|##ARM_SUBSCRIPTION_ID##|$ARM_CLIENT_ID|g" common_config.json
+          # sed -i "s|##ARM_TENANT_ID##|$ARM_TENANT_ID|g" common_config.json
+          # sed -i "s|##ARM_CLIENT_ID##|$ARM_CLIENT_ID|g" common_config.json
+          # sed -i "s|##ARM_CLIENT_SECRET##|$ARM_CLIENT_SECRET|g" common_config.json
+          # cat common_config.json
 
 
       - name: Terraform Init
