@@ -139,23 +139,10 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
     version   = "latest"
   }
 
-  os_profile {
-    computer_name  = "hostname"
-    admin_username = "adminusername"
-
-    linux_configuration {
-      disable_password_authentication = true
-
-      ssh_keys {
-        path     = "/home/adminusername/.ssh/authorized_keys"
-        key_data = "SSH_PUBLIC_KEY"
-      }
-    }
-  }
-
-  os_profile_linux_config {
-    disable_password_authentication = true
-  }
+  computer_name                   = "myvmtest"
+  admin_username                  = "admin@123"
+  admin_password                  = "Admin@999"
+  disable_password_authentication = false
 
   admin_ssh_key {
     username   = "natthidak"
