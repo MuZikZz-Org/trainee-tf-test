@@ -47,4 +47,4 @@ jobs:
 
       - name: Terraform destroy
         id: destroy
-        run: terraform destroy -var-file="common_config.json" -auto-approve
+        run: terraform destroy -var-file="common_config.json" -auto-approve -lock=false
