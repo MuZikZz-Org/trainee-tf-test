@@ -120,9 +120,9 @@ resource "tls_private_key" "example_ssh" {
 
 # Create virtual machine
 resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
-  name                  = "vm-trainee-test"
-  location              = "SoutheastAsia"
-  resource_group_name   = "rg-ais-payment-gateway"
+  name                  = "myVM"
+  location              = azurerm_resource_group.rg.location
+  resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.my_terraform_nic.id]
   size                  = "Standard_DS1_v2"
 
@@ -139,9 +139,9 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
     version   = "latest"
   }
 
-  computer_name                   = "myvmtest"
-  admin_username                  = "admin@123"
-  admin_password                  = "Admin@999"
+  computer_name                   = "natthidak"
+  admin_username                  = "natthidak"
+  admin_password                  = "NatthidaK@16"
   disable_password_authentication = false
 
   admin_ssh_key {
