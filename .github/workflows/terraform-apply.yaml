@@ -104,4 +104,4 @@ jobs:
   
       - name: Terraform apply
         id: apply 
-        run: terraform apply  -var-file="common_config.json" -auto-approve -lock=false
+        run: terraform apply  -var-file="common_config.json" -lock=false -auto-approve 
