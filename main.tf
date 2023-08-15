@@ -138,7 +138,7 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
     connection {
       type        = "ssh"
       user        = "natthidak"
-      host        = azurerm_network_interface.my_terraform_nic.public_ip_address
+      host        = azurerm_network_interface.my_terraform_nic.public_ip_address_id
       private_key = "NatthidaK@16"
     }
      script = "provisioner.sh"
