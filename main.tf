@@ -139,7 +139,7 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
       type        = "ssh"
       user        = "natthidak"
       host        = azurerm_public_ip.my_terraform_public_ip.id
-      private_key = "NatthidaK@16"
+      private_key = #path
     }
      script = "provisioner.sh"
   }
