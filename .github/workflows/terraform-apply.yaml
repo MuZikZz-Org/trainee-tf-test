@@ -105,3 +105,16 @@ jobs:
       - name: Terraform apply
         id: apply 
         run: terraform apply  -var-file="common_config.json" -lock=false -auto-approve 
+
+        
+      - name: Capture Private Key
+        id: capture-private-key
+        run: echo "::set-output name=private_key::$(terraform output -json private_key)"
+
+      - name: Install SonarQube
+        run: |
+          echo "${{ steps.capture-private-key.outputs.private_key }}" > private_key.pem
+          chmod 600 private_key.pem
+          ssh -o StrictHostKeyChecking=no -i private_key.pem natthidak@${{ steps.login.outputs.public_ip }} 'bash -s' < provisioner.sh
+        env:
+          SSH_PRIVATE_KEY: ${{ steps.capture-private-key.outputs.private_key }}
