@@ -133,35 +133,38 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
     storage_account_uri = azurerm_storage_account.my_storage_account.primary_blob_endpoint
   }
 
-   connection {
+#   connection {
+ #   type        = "ssh"
+  #  host        = self.public_ip_address
+   # user        = "natthidak"
+#    password    = "NatthidaK@16"  # Replace with the admin password
+ #   private_key =  tls_private_key.example_ssh.private_key_pem
+  #}
+
+
+#  provisioner "remote-exec" {
+#    inline = [
+#      "sudo apt-get update",
+ #     "sudo apt-get install -y default-jre",
+#      "wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.0.1.46107.zip",
+#      "unzip sonarqube-9.0.1.46107.zip",
+#      "sudo mv sonarqube-9.0.1.46107 /opt/sonarqube",
+#      "sudo /opt/sonarqube/bin/linux-x86-64/sonar.sh start"
+#    ]
+#  }
+
+
+  provisioner "remote-exec" {
+    connection {
     type        = "ssh"
     host        = self.public_ip_address
     user        = "natthidak"
     password    = "NatthidaK@16"  # Replace with the admin password
     private_key =  tls_private_key.example_ssh.private_key_pem
+    }
+     script = "provisioner.sh"
   }
 
-
-  provisioner "remote-exec" {
-    inline = [
-      "sudo apt-get update",
-      "sudo apt-get install -y default-jre",
-      "wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.0.1.46107.zip",
-      "unzip sonarqube-9.0.1.46107.zip",
-      "sudo mv sonarqube-9.0.1.46107 /opt/sonarqube",
-      "sudo /opt/sonarqube/bin/linux-x86-64/sonar.sh start"
-    ]
-  }
-
-#  provisioner "remote-exec" {
- #   connection {
-  #    type        = "ssh"
-   #   user        = "natthidak"
-     # host        = azurerm_public_ip.my_terraform_public_ip.ip_address
-    #  private_key = tls_private_key.example_ssh.private_key_pem
-   # }
-  #   script = "provisioner.sh"
- # }
   tags = merge(
      var.env_tags
    )
