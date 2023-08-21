@@ -22,6 +22,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      # - name: Fetch State Files
+      #   run: |
+      #     # Log in to Azure using the provided credentials
+      #     az login --service-principal --username $ARM_CLIENT_ID --password $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
+
+      #     # Fetch state files from Azure Blob Storage
+      #     az storage blob download-batch --destination ./state-files --source-container $STORAGE_CONTAINER_NAME --pattern "*.tfstate"
+
+      #     # List the fetched state files
+      #     ls -l ./state-files
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
